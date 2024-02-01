@@ -34,7 +34,7 @@ const Wrapper = styled.label`
   border-bottom: var(--border-bottom) solid ${COLORS.black};
   color: ${COLORS.gray700};
   outline: 1px solid transparent;
-  outline-offset: 10px 2px 2px;
+  outline-offset: 2px;
 
   &:hover {
     color: ${COLORS.black};
