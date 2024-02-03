@@ -21,6 +21,7 @@ const Medium = styled(BaseProgressBar)`
 
 const Large = styled(BaseProgressBar)`
   height: 24px;
+  padding: 4px;
   border-radius: 8px;
 `;
 
@@ -30,8 +31,31 @@ const SIZES = {
   large: Large
 };
 
+const InnerBar = styled.div`
+  --border-radius: 4px;
+
+  width: ${({width}) => width + '%'};
+  height: 100%;
+  background-color: ${COLORS.primary};
+  border-radius: var(--border-radius) var(--right-radius) var(--right-radius) var(--border-radius);
+`;
+
+const getInnerBarRadius = (currentPercentage) => {
+  const basePercentage = 98;
+  const maxRadiusValue = 4;
+  const scale = 100 - basePercentage;
+
+  if (currentPercentage < basePercentage) {
+    return '0px';
+  }
+
+  const radius = (currentPercentage - basePercentage) * (maxRadiusValue / scale);
+  return radius + 'px';
+}
+
 const ProgressBar = ({ value, size }) => {
   let Component;
+  const innerBarRightRadius = getInnerBarRadius(value)
 
   if (SIZES[size]) {
     Component = SIZES[size];
@@ -45,8 +69,14 @@ const ProgressBar = ({ value, size }) => {
       aria-valuemin="0"
       aria-valuemax="100"
       aria-valuenow={value}
+      aria-labelledby="title"
     >
-      <div aria-hidden></div>
+      <VisuallyHidden id="title">Custom Progress Bar</VisuallyHidden>
+      <InnerBar
+        aria-hidden
+        style={{ '--right-radius': innerBarRightRadius }}
+        width={value}
+      />
     </Component>
   );
 };
