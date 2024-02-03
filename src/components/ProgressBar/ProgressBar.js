@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React from 'react';
 import styled from 'styled-components';
 
 import { COLORS } from '../../constants';
 import VisuallyHidden from '../VisuallyHidden';
+import { getInnerBarRadius } from './ProgressBar.helpers';
 
 const BaseProgressBar = styled.div`
   width: 370px;
@@ -39,19 +39,6 @@ const InnerBar = styled.div`
   background-color: ${COLORS.primary};
   border-radius: var(--border-radius) var(--right-radius) var(--right-radius) var(--border-radius);
 `;
-
-const getInnerBarRadius = (currentPercentage) => {
-  const basePercentage = 98;
-  const maxRadiusValue = 4;
-  const scale = 100 - basePercentage;
-
-  if (currentPercentage < basePercentage) {
-    return '0px';
-  }
-
-  const radius = (currentPercentage - basePercentage) * (maxRadiusValue / scale);
-  return radius + 'px';
-}
 
 const ProgressBar = ({ value, size }) => {
   let Component;
