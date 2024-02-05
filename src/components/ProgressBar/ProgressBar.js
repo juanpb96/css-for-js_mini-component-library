@@ -9,6 +9,7 @@ const BaseProgressBar = styled.div`
   width: 370px;
   background-color: ${COLORS.transparentGray15};
   border-radius: 4px;
+  box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
 `;
 
 const Small = styled(BaseProgressBar)`
